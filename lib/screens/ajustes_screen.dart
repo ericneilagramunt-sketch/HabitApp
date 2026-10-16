@@ -72,8 +72,8 @@ class _AjustesScreenState extends State<AjustesScreen> {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.delete_forever, color: Colors.red),
-            title: const Text('Borrar datos', style: TextStyle(color: Colors.red)),
+            leading: const Icon(Icons.delete_forever, color: Colors.pink),
+            title: const Text('Borrar datos', style: TextStyle(color: Colors.pink)),
             subtitle: const Text('Deja la app como recién instalada'),
             onTap: () async {
               await _prefsService.borrarTodo();
