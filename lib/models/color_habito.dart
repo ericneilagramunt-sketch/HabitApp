@@ -1,50 +1,31 @@
 import 'dart:convert';
 
+// Clase que representa un hábito de la aplicación.
 class Habito {
-  final String id;
-  String nombre;
-  int colorHex;
-  List<String> fechasCompletadas;
+// Identificador único del hábito.
+final String id;
 
-  Habito({
-    required this.id,
-    required this.nombre,
-    required this.colorHex,
-    List<String>? fechasCompletadas,
-  }) : fechasCompletadas = fechasCompletadas ?? [];
+// Nombre del hábito.
+String nombre;
 
-  bool estaCompletadoHoy([DateTime? fecha]) {
-    final f = fecha ?? DateTime.now();
-    return fechasCompletadas.contains(_formatearFecha(f));
-  }
+// Color del hábito guardado como un número hexadecimal.
+int colorHex;
 
-  void alternarCompletadoHoy() {
-    final hoyStr = _formatearFecha(DateTime.now());
-    if (fechasCompletadas.contains(hoyStr)) {
-      fechasCompletadas.remove(hoyStr);
-    } else {
-      fechasCompletadas.add(hoyStr);
-    }
-  }
+// Lista de fechas en las que se ha completado el hábito.
+List<String> fechasCompletadas;
 
-  static String _formatearFecha(DateTime fecha) {
-    return "${fecha.year.toString().padLeft(4, '0')}-${fecha.month.toString().padLeft(2, '0')}-${fecha.day.toString().padLeft(2, '0')}";
-  }
+// Constructor que recibe los datos necesarios para crear un hábito.
+// Si no se pasan fechas, se crea una lista vacía.
+Habito({
+required this.id,
+required this.nombre,
+required this.colorHex,
+List<String>? fechasCompletadas,
+}) : fechasCompletadas = fechasCompletadas ?? [];
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'nombre': nombre,
-    'colorHex': colorHex,
-    'fechasCompletadas': fechasCompletadas,
-  };
-
-  factory Habito.fromJson(Map<String, dynamic> json) => Habito(
-    id: json['id'] as String,
-    nombre: json['nombre'] as String,
-    colorHex: json['colorHex'] as int,
-    fechasCompletadas: List<String>.from(json['fechasCompletadas'] ?? []),
-  );
-
-  String toRawJson() => jsonEncode(toJson());
-  factory Habito.fromRawJson(String str) => Habito.fromJson(jsonDecode(str));
+// Comprueba si el hábito se ha completado en una fecha concreta.
+// Si no se indica una fecha, utiliza la fecha actual.
+bool estaCompletadoHoy([DateTime? fecha]) {
+final f = fecha ?? DateTime.now();
+return fechasCompletadas.contains(_formatearFecha(f));
 }
